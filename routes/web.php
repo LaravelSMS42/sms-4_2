@@ -9,3 +9,8 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return view('hello');
 });
+
+Route::get('/college', function () {
+    return view('admin.college');
+});
+
