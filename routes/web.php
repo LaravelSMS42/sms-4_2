@@ -28,3 +28,8 @@ Route::get('/department', function () {
     return view('admin.department');
 });
 
+//Edit to '/{collegeID}/departments/add-department' when backend is functional
+Route::get('/department/add-department', function () {
+    return view('admin.add-department');
+});
+

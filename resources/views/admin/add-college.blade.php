@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="collegeAcronym" class="col-sm-2 col-form-label">Dean/Person-In-Charge:</label>
+                <label for="collegePIC" class="col-sm-2 col-form-label">Dean/Person-In-Charge:</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="selectPIC">
                         <option value="1">Engr. Ryan John De Lara</option>
