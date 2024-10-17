@@ -1,9 +1,9 @@
 @extends('layout')
-@section('title', '{Department} Programs Management')
+@section('title', '{College} Programs Management')
 @section('content')
 <div class="card">
   <div class="card-header text-center">
-    <h5 class="card-title">{Department} Programs</h5>
+    <h5 class="card-title">{College} Programs</h5>
   </div>
   <div class="card-body">
     <div class="d-flex bd-highlight mb-3">
@@ -33,6 +33,22 @@
             <tr>
                 <th>2</th>
                 <td colspan="2">Bachelor of Science in Computer Science</td>
+                <td class="text-end">
+                    <button class="btn btn-outline-primary" type="submit">Edit</button>
+                    <button class="btn btn-danger" type="submit">Archive</button>
+                </td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td colspan="2">Bachelor of Science in Electrical Engineering</td>
+                <td class="text-end">
+                    <button class="btn btn-outline-primary" type="submit">Edit</button>
+                    <button class="btn btn-danger" type="submit">Archive</button>
+                </td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td colspan="2">Bachelor of Science in Computer Engineering</td>
                 <td class="text-end">
                     <button class="btn btn-outline-primary" type="submit">Edit</button>
                     <button class="btn btn-danger" type="submit">Archive</button>
