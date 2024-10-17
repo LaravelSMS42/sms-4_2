@@ -14,3 +14,7 @@ Route::get('/college', function () {
     return view('admin.college');
 });
 
+Route::get('/add-college', function () {
+    return view('admin.add-college');
+});
+

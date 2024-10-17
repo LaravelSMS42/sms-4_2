@@ -14,7 +14,8 @@
             College
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Create College</a></li>
+            <li><a class="dropdown-item" href="#">College Management</a></li>
+            <li><a class="dropdown-item" href="#">Add College</a></li>
           </ul>
         </li>
         <li class="nav-item">
