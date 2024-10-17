@@ -70,3 +70,25 @@ Route::get('/archive-department', function () {
 Route::get('/archive-program', function () {
     return view('admin.archive-program');
 });
+
+//Edit to '/departments' when backend is functional
+Route::get('/all-departments', function () {
+    return view('admin.all-depts');
+});
+
+//Edit to '/programs' when backend is functional
+Route::get('/all-programs', function () {
+    return view('admin.all-programs');
+});
+
+Route::get('/college/archives', function () {
+    return view('admin.college-archives');
+});
+
+Route::get('/department/archives', function () {
+    return view('admin.dept-archives');
+});
+
+Route::get('/program/archives', function () {
+    return view('admin.program-archives');
+});
