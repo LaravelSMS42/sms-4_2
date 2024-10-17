@@ -28,8 +28,7 @@ Route::get('/department', function () {
     return view('admin.department');
 });
 
-//Edit to '/{collegeID}/departments/add-department' when backend is functional
-Route::get('/department/add-department', function () {
+Route::get('/add-department', function () {
     return view('admin.add-department');
 });
 
@@ -48,3 +47,7 @@ Route::get('college/programs', function () {
     return view('admin.college-programs');
 });
 
+//Edit to '/add-department' when backend is functional
+Route::get('/add-program', function () {
+    return view('admin.add-program');
+});
