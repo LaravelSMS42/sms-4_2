@@ -55,3 +55,18 @@ Route::get('/add-program', function () {
 Route::get('/edit-program', function () {
     return view('admin.edit-program');
 });
+
+//Add to '/college/{collegeID}/archive' when backend is functional
+Route::get('/archive-college', function () {
+    return view('admin.archive-college');
+});
+
+//Add to '/college/{departmentID}/archive' when backend is functional
+Route::get('/archive-department', function () {
+    return view('admin.archive-department');
+});
+
+//Add to '/college/{programID}/archive' when backend is functional
+Route::get('/archive-program', function () {
+    return view('admin.archive-program');
+});
