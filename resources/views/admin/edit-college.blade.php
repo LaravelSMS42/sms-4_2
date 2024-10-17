@@ -1,9 +1,9 @@
 @extends('layout')
-@section('title', 'Add College')
+@section('title', 'Edit College')
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <h5 class="card-title">Add College</h5>
+        <h5 class="card-title">Edit College</h5>
     </div>
     <form>
         <div class="card-body">
@@ -31,8 +31,13 @@
                 
             </div>
         </div>
-        <div class="card-footer">
-            <div class="d-flex justify-content-end bd-highlight gap-2">
+        
+        <div class="card-footer d-flex justify-content-between">
+            <div class="bd-highlight gap-2">
+                <button type="button" class="btn btn-primary">Departments</button>
+                <button type="button" class="btn btn-primary">Programs</button>
+            </div>
+            <div class="bd-highlight gap-2">
                 <button type="button" class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-danger">Cancel</button>
             </div>
