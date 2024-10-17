@@ -26,7 +26,7 @@
             <div class="form-group row">
                 <label for="building" class="col-sm-2 col-form-label">Building:</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="selectPIC">
+                    <select class="form-select" aria-label="selectBuilding">
                         <option value="1">Computer Science Building</option>
                         <option value="2">Main Library Building</option>
                         <option value="3">Administration Building</option>
