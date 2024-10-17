@@ -47,7 +47,11 @@ Route::get('college/programs', function () {
     return view('admin.college-programs');
 });
 
-//Edit to '/add-department' when backend is functional
 Route::get('/add-program', function () {
     return view('admin.add-program');
+});
+
+//Add to '/edit-program/{programID}' when backend is functional
+Route::get('/edit-program', function () {
+    return view('admin.edit-program');
 });

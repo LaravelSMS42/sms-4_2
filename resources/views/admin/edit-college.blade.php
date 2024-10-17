@@ -1,9 +1,9 @@
 @extends('layout')
-@section('title', 'Edit College')
+@section('title', 'Edit {College}')
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <h5 class="card-title">Edit College</h5>
+        <h5 class="card-title">Edit {College}</h5>
     </div>
     <form>
         <div class="card-body">
@@ -38,7 +38,7 @@
                 <button type="button" class="btn btn-primary">Programs</button>
             </div>
             <div class="bd-highlight gap-2">
-                <button type="button" class="btn btn-success">Add</button>
+                <button type="button" class="btn btn-success">Save</button>
                 <button type="button" class="btn btn-danger">Cancel</button>
             </div>
         </div>
