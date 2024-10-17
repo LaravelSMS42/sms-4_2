@@ -11,18 +11,30 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            College
+            Colleges
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">College Management</a></li>
             <li><a class="dropdown-item" href="#">Add College</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Departments
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Department Management</a></li>
+            <li><a class="dropdown-item" href="#">Add Department</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-disabled="true">Link 2</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Programs
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Program Management</a></li>
+            <li><a class="dropdown-item" href="#">Add Program</a></li>
+          </ul>
         </li>
       </ul>
       <div href="" class="d-flex">
