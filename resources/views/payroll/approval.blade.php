@@ -14,9 +14,15 @@
         <div class="list-group-item">
             <span>Employee ID: {{ $payroll->employee_id }}</span>
             <span>Payment Information</span>
-            <form action="{{ route('payroll.approve', $payroll->id) }}" method="POST" class="float-end">
+            <form action="{{ route('payroll.approve', $payroll->id) }}" method="POST" class="float-end ms-2">
                 @csrf
                 <button type="submit" class="btn btn-success btn-sm">Approve</button>
+            </form>
+
+            <!-- Decline Form -->
+            <form action="{{ route('payroll.decline', $payroll->id) }}" method="POST" class="float-end">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm">Decline</button>
             </form>
         </div>
         @endforeach

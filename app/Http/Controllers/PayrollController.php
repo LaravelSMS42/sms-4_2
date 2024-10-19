@@ -48,4 +48,13 @@ class PayrollController extends Controller
 
         return redirect()->route('payroll.history')->with('success', 'Payroll approved successfully.');
     }
+
+    public function decline($id)
+{
+    $payroll = Payroll::findOrFail($id);
+    $payroll->delete(); // Remove the payroll from the database or handle as per your decline logic
+
+    return redirect()->route('payroll.approval')->with('error', 'Payroll declined.');
+}
+
 }
