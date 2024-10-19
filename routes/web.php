@@ -17,3 +17,7 @@ Route::get('/college', function () {
 Route::get('/personal-information', function () {
     return view('enrollment.personal-info');
 });
+
+Route::get('/room-assignment', function () {
+    return view('enrollment.room-assignment');
+});
