@@ -30,9 +30,10 @@ class PayrollController extends Controller
 
     public function history()
     {
-        $payrolls = Payroll::where('approved', true)->get(); // Fetch approved payrolls
-        return view('payroll.history', compact('payrolls')); // Pass data to the view
+        $payrolls = Payroll::all(); // Fetch all payrolls, regardless of approval status
+        return view('payroll.history', compact('payrolls')); // Pass the payroll data to the view
     }
+    
 
     public function approval()
     {

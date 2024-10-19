@@ -22,11 +22,11 @@
         </thead>
         <tbody>
             @foreach($payrolls as $payroll)
-            <tr>
+            <tr class="{{ $payroll->approved ? '' : 'table-warning' }}">
                 <td>{{ $payroll->employee_id }}</td>
                 <td>{{ $payroll->employee_name }}</td>
                 <td>{{ $payroll->date }}</td>
-                <td>{{ $payroll->allowance }}</td>
+                <td>{{ number_format($payroll->allowance, 2) }}</td>
                 <td>{{ $payroll->rate }}</td>
                 <td>{{ $payroll->approved ? 'Approved' : 'Pending' }}</td>
             </tr>
