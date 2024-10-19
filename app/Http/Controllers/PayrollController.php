@@ -1,5 +1,7 @@
 <?php
 
+// app/Http/Controllers/PayrollController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Payroll;
@@ -7,13 +9,14 @@ use Illuminate\Http\Request;
 
 class PayrollController extends Controller
 {
+    
     public function create()
     {
-        return view('payroll.create');
+        return view('payroll.create'); // Show create payroll view
     }
-
     public function store(Request $request)
     {
+        // Validate request data
         $validatedData = $request->validate([
             'employee_type' => 'required|string',
             'transaction_type' => 'required|string',
@@ -24,38 +27,54 @@ class PayrollController extends Controller
             'date' => 'required|date',
         ]);
 
-        Payroll::create($validatedData); // Save to the database
-        return redirect()->route('payroll.approval')->with('success', 'Payroll created successfully.');
+        // Create payroll
+        $payroll = Payroll::create($validatedData);
+        return redirect()->route('payroll.create')->with('success', 'Payroll created successfully.');
     }
 
-    public function history()
+    // Show the payroll approval page
+    public function showApprovalPage()
     {
-        $payrolls = Payroll::all(); // Fetch all payrolls, regardless of approval status
-        return view('payroll.history', compact('payrolls')); // Pass the payroll data to the view
+        $pendingPayrolls = Payroll::where('approved', false)->get();
+        return view('payroll.approval', compact('pendingPayrolls'));
     }
-    
 
-    public function approval()
+    // API endpoint to get pending payroll data
+    public function getPendingPayrolls()
     {
-        $pendingPayrolls = Payroll::where('approved', false)->get(); // Fetch pending payrolls
-        return view('payroll.approval', compact('pendingPayrolls')); // Pass data to the view
+        $pendingPayrolls = Payroll::where('approved', false)->get();
+        return response()->json($pendingPayrolls);
     }
 
-    public function approve($id)
+    // Show the payroll history page
+    public function showHistoryPage()
+    {
+        $payrolls = Payroll::paginate(10); // Retrieve all payrolls for the view
+        return view('payroll.history', compact('payrolls'));
+    }
+
+    // API endpoint to get payroll history data
+    public function getPayrollHistory()
+    {
+        $payrolls = Payroll::all(); // You might want to paginate this too
+        return response()->json($payrolls);
+    }
+
+    // Approve Payroll (API version)
+    public function approveApi($id)
     {
         $payroll = Payroll::findOrFail($id);
         $payroll->approved = true; // Set approved status
         $payroll->save(); // Save the changes
-
-        return redirect()->route('payroll.history')->with('success', 'Payroll approved successfully.');
+        return redirect()->route('payroll.approval')->with('success', 'Payroll approved successfully.');
     }
 
-    public function decline($id)
-{
-    $payroll = Payroll::findOrFail($id);
-    $payroll->delete(); // Remove the payroll from the database or handle as per your decline logic
-
-    return redirect()->route('payroll.approval')->with('error', 'Payroll declined.');
+    // Decline Payroll (API version)
+    public function declineApi($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+        $payroll->delete(); // Remove the payroll from the database
+        return redirect()->route('payroll.approval')->with('success', 'Payroll approved successfully.');
+    }
 }
 
-}
