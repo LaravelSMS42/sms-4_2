@@ -8,7 +8,7 @@
   <div class="card-body">
     <div class="d-flex bd-highlight mb-3">
         <form class="d-flex" role="search">
-            <input class="form-control me-2" style="" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" styles="" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <a href="" class="ms-auto d-flex bd-highlight btn btn-success">Add College</a>
