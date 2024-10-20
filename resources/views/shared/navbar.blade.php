@@ -14,26 +14,29 @@
             Colleges
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">College Management</a></li>
-            <li><a class="dropdown-item" href="#">Add College</a></li>
+            <li><a class="dropdown-item" href="{{ route('college.index') }}">College Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('college.create') }}">Add College</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-colleges') }}">Archived Colleges</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Departments
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Department Management</a></li>
-            <li><a class="dropdown-item" href="#">Add Department</a></li>
+            <li><a class="dropdown-item" href="/all-departments">Department Management</a></li>
+            <li><a class="dropdown-item" href="/add-program">Add Department</a></li>
+            <li><a class="dropdown-item" href="/dept-archives">Archived Departments</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Programs
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Program Management</a></li>
-            <li><a class="dropdown-item" href="#">Add Program</a></li>
+            <li><a class="dropdown-item" href="/all-programs">Program Management</a></li>
+            <li><a class="dropdown-item" href="/add-program">Add Program</a></li>
+            <li><a class="dropdown-item" href="/program-archives">Archived Programs</a></li>
           </ul>
         </li>
       </ul>
