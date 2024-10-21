@@ -11,17 +11,33 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            College
+            Colleges
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Create College</a></li>
+            <li><a class="dropdown-item" href="{{ route('college.index') }}">College Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('college.create') }}">Add College</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-colleges') }}">Archived Colleges</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Departments
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('department.index') }}">Department Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('department.create') }}">Add Department</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-depts') }}">Archived Departments</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-disabled="true">Link 2</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Programs
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('programs.index') }}">Program Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('program.create') }}">Add Program</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-programs') }}">Archived Programs</a></li>
+          </ul>
         </li>
       </ul>
       <div href="" class="d-flex">
