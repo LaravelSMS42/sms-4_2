@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header text-center">
-            <h5 class="card-title">Edit College</h5>
+            <h5 class="card-title">Edit {{ $college->college_name }}</h5>
         </div>
         <form action="{{ route('colleges.update', $college->id) }}" method="POST">
             @csrf
@@ -35,14 +35,18 @@
                     <div class="col-sm-10">
                         <select class="form-select" aria-label="building_id" id="building-id" name="building_id">
                             @foreach($buildings as $item)
-                                <option value="{{ $item->building_id }}">{{ $item->building_name }}</option>
+                                <option value="{{ $item->building_id }}" {{ ( $item->building_id == $existingBuildingId) ? 'selected' : '' }}>{{ $item->building_name }}</option>
                             @endforeach
                         </select>
                         @error('building_id') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer d-flex justify-content-between">
+                <div class="d-flex justify-content-start bd-highlight gap-2">
+                    <a href="{{ route('colleges.show', $college->id) }}" class="btn btn-primary">Departments</a>
+                    <a href="{{ route('college-depts', $college->id) }}" class="btn btn-primary">Programs</a>
+                </div>
                 <div class="d-flex justify-content-end bd-highlight gap-2">
                     <button type="submit" class="btn btn-success" value="Save">Save</button>
                     <a href="{{ route('college.index') }}" class="btn btn-danger">Cancel</a>

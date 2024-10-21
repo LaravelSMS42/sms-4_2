@@ -24,9 +24,9 @@
             Departments
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/all-departments">Department Management</a></li>
-            <li><a class="dropdown-item" href="/add-program">Add Department</a></li>
-            <li><a class="dropdown-item" href="/dept-archives">Archived Departments</a></li>
+            <li><a class="dropdown-item" href="{{ route('department.index') }}">Department Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('department.create') }}">Add Department</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-depts') }}">Archived Departments</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

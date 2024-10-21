@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\DepartmentController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -11,3 +12,4 @@ use App\Http\Controllers\BuildingController;
 
 Route::apiResource('colleges', CollegeController::class);
 Route::apiResource('buildings', BuildingController::class);
+Route::apiResource('departments', DepartmentController::class);

@@ -21,27 +21,24 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
+            @forelse($departments as $item)
             <tr>
-                <th>1</th>
-                <td colspan="2">Information Technology Department</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
+                <th>{{ $item->id }}</th>
+                <td colspan="2">{{ $item->department_name }}</td>
+                <td class="d-flex justify-content-end">
+                    <form action="{{ route('unarchive-dept', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to restore this College? You may view this in the college management page.')">
+                    @csrf
+                    @method('PUT')
+
+                        <button type="submit" class="btn btn-outline-success">Unarchive</button>
+                    </form>
                 </td>
             </tr>
+            @empty
             <tr>
-                <th>2</th>
-                <td colspan="2">Engineering Department</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
-                </td>
+                <th>There are no archived departments</th>
             </tr>
-            <tr>
-                <th>3</th>
-                <td colspan="2">Computer Science Department</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
-                </td>
-            </tr>
+            @endforelse
         </tbody>
     </table>
   </div>

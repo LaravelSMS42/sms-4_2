@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
 use App\Models\College;
 use App\Models\Building;
@@ -45,7 +46,7 @@ class CollegeController extends Controller
         ]);
 
         College::create($request->all());
-        return redirect()->route('college.index');
+        return redirect()->route('college.index')->with('status', 'College added successfully!');
     }
 
     /**
@@ -54,7 +55,8 @@ class CollegeController extends Controller
     public function show(College $college)
     {
         //
-        return $college;
+        $departments = DB::table('departments')->where('archived', '=', 0)->where('college_id', '=', $college->id)->get();
+        return view('admin.college.department', compact('college'))->with('departments', $departments);
     }
 
     /**
@@ -64,7 +66,8 @@ class CollegeController extends Controller
     {
         //
         $buildings = Building::all();
-        return view('admin.college.edit-college', compact('college'))->with('buildings', $buildings);
+        $existingBuildingId = DB::table('colleges')->where('building_id', '=', $college->building_id)->where('id', '=', $college->id)->pluck('building_id')->first();
+        return view('admin.college.edit-college', compact('college'))->with('buildings', $buildings)->with('existingBuildingId', $existingBuildingId);
     }
 
     /**
@@ -81,7 +84,7 @@ class CollegeController extends Controller
         ]);
 
         $college->update($request->all());
-        return redirect()->route('college.index');
+        return redirect()->route('college.index')->with('status', 'College updated successfully!');
     }
 
     /**
@@ -93,7 +96,7 @@ class CollegeController extends Controller
         $college->update([
             'archived' => 1
         ]);
-        return redirect()->route('college.index');
+        return redirect()->route('college.index')->with('status', 'College archived successfully!');
     }
 
     public function archive()
@@ -109,6 +112,13 @@ class CollegeController extends Controller
         $college->update([
             'archived' => 0
         ]);
-        return redirect()->route('archived-colleges');
+        return redirect()->route('archived-colleges')->with('status', 'College restored successfully!');
+    }
+
+    public function departments(College $college)
+    {
+        //
+        $departments = DB::table('departments')->where('archived', '=', 0)->where('college_id', '=', $college->id)->get();
+        return view('admin.college.department', compact('college'))->with('departments', $departments);
     }
 }

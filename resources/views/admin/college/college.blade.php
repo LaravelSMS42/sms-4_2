@@ -1,6 +1,16 @@
 @extends('layout')
 @section('title', 'College Management')
 @section('content')
+<!-- @session('status')
+<div class="alert alert-success">
+    {{ session()->get('status') }}
+</div>
+@endsession -->
+@if (session()->has('status')) 
+<div class="alert alert-success">
+    {{ (session()->get('status')) }}
+</div> 
+@endif
 <div class="card">
   <div class="card-header text-center">
     <h5 class="card-title">College Management</h5>
@@ -22,7 +32,7 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            @foreach($colleges as $item)
+            @forelse($colleges as $item)
             <tr>
                 <th>{{ $item->id }}</th>
                 <td colspan="2">{{ $item->college_name }}</td>
@@ -36,7 +46,11 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <th>There are no colleges</th>
+            </tr>
+            @endforelse
         </tbody>
     </table>
   </div>

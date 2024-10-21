@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colleges', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('college_name')->nullable('false');
-            $table->string('college_acronym')->nullable('false');
-            $table->string('college_email')->nullable('false')->unique();
+            $table->unsignedBigInteger('college_id')->nullable('false');
+            $table->string('department_name')->nullable('false');
+            $table->string('department_email')->nullable('false');
             $table->unsignedBigInteger('building_id')->nullable('false');
             $table->boolean('archived')->default(0)->comment('1=archived,0=visible');
             $table->timestamps();
-
-            //$table->foreign('building_id')->references('building_id')->on('buildings');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colleges');
+        Schema::dropIfExists('departments');
     }
 };

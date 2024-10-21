@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->unsignedBigInteger('building_id');
+            $table->unsignedBigInteger('building_id')->autoIncrement();
             $table->string('building_name')->nullable(false)->unique();
             $table->string('building_description')->nullable(false)->unique();
             $table->boolean('archived')->default(0)->comment('1=visible,0=archived');
