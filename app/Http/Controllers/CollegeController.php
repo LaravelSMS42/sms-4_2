@@ -121,4 +121,11 @@ class CollegeController extends Controller
         $departments = DB::table('departments')->where('archived', '=', 0)->where('college_id', '=', $college->id)->get();
         return view('admin.college.department', compact('college'))->with('departments', $departments);
     }
+
+    public function programs(College $college)
+    {
+        //
+        $programs = DB::table('programs')->where('archived', '=', 0)->where('college_id', '=', $college->id)->get();
+        return view('admin.college.college-programs', compact('college'))->with('programs', $programs);
+    }
 }

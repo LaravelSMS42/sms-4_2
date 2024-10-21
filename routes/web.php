@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ProgramController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -15,10 +16,15 @@ Route::get('/hello', function () {
 Route::get('/college/archives', [CollegeController::class, 'archive'])->name('archived-colleges');
 Route::put('/college/archives/{college}', [CollegeController::class, 'unarchive'])->name('unarchive-college');
 Route::get('/college/{college}/departments', [CollegeController::class, 'departments'])->name('college-depts');
+Route::get('/college/{college}/programs', [CollegeController::class, 'programs'])->name('college-programs');
 Route::resource('college', CollegeController::class);
 Route::get('/department/archives', [DepartmentController::class, 'archive'])->name('archived-depts');
 Route::put('/department/archives/{department}', [DepartmentController::class, 'unarchive'])->name('unarchive-dept');
+Route::get('/department/{department}/programs', [DepartmentController::class, 'programs'])->name('department-programs');
 Route::resource('department', DepartmentController::class);
+Route::get('/program/archives', [ProgramController::class, 'archive'])->name('archived-programs');
+Route::put('/program/archives/{program}', [ProgramController::class, 'unarchive'])->name('unarchive-program');
+Route::resource('program', ProgramController::class);
 
 // Route::get('/college', [CollegeController::class, 'index'])->name('college');
 

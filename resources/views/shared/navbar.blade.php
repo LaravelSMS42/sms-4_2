@@ -34,9 +34,9 @@
             Programs
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/all-programs">Program Management</a></li>
-            <li><a class="dropdown-item" href="/add-program">Add Program</a></li>
-            <li><a class="dropdown-item" href="/program-archives">Archived Programs</a></li>
+            <li><a class="dropdown-item" href="{{ route('programs.index') }}">Program Management</a></li>
+            <li><a class="dropdown-item" href="{{ route('program.create') }}">Add Program</a></li>
+            <li><a class="dropdown-item" href="{{ route('archived-programs') }}">Archived Programs</a></li>
           </ul>
         </li>
       </ul>

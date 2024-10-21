@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Add Department')
+@section('title', 'Edit Department')
 @section('content')
 <div class="card">
     <div class="card-header text-center">
@@ -24,7 +24,7 @@
                 <label for="department_name" class="col-sm-2 col-form-label">Department Name:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="department_name" id="department_name" value="{{ $department->department_name }}">
-                    @error('college_id') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('department_name') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="form-group row mb-3">
@@ -46,7 +46,10 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer d-flex justify-content-between">
+            <div class="d-flex justify-content-start bd-highlight gap-2">
+                    <a href="{{ route('department-programs', $department->id) }}" class="btn btn-primary">Programs</a>
+                </div>
             <div class="d-flex justify-content-end bd-highlight gap-2">
                 <button type="submit" class="btn btn-success" value="Add">Save</button>
                 <a href="{{ route('department.index') }}" class="btn btn-danger">Cancel</a>

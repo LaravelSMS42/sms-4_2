@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Add College')
+@section('title', 'Edit College')
 @section('content')
     <div class="card">
         <div class="card-header text-center">
@@ -45,7 +45,7 @@
             <div class="card-footer d-flex justify-content-between">
                 <div class="d-flex justify-content-start bd-highlight gap-2">
                     <a href="{{ route('colleges.show', $college->id) }}" class="btn btn-primary">Departments</a>
-                    <a href="{{ route('college-depts', $college->id) }}" class="btn btn-primary">Programs</a>
+                    <a href="{{ route('college-programs', $college->id) }}" class="btn btn-primary">Programs</a>
                 </div>
                 <div class="d-flex justify-content-end bd-highlight gap-2">
                     <button type="submit" class="btn btn-success" value="Save">Save</button>

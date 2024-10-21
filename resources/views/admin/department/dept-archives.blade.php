@@ -26,7 +26,7 @@
                 <th>{{ $item->id }}</th>
                 <td colspan="2">{{ $item->department_name }}</td>
                 <td class="d-flex justify-content-end">
-                    <form action="{{ route('unarchive-dept', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to restore this College? You may view this in the college management page.')">
+                    <form action="{{ route('unarchive-dept', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to restore this Department? You may view this in the department management page.')">
                     @csrf
                     @method('PUT')
 

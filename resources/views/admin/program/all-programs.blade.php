@@ -11,49 +11,38 @@
             <input class="form-control me-2" style="" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
-        <a href="" class="ms-auto d-flex bd-highlight btn btn-success">Add Program</a>
+        <a href="{{ route('program.create') }}" class="ms-auto d-flex bd-highlight btn btn-success">Add Program</a>
     </div>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">ID</th>
+            <th scope="col">Program Code</th>
             <th scope="col">Program</th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
+        @forelse($programs as $item)
             <tr>
-                <th>1</th>
-                <td colspan="2">Bachelor of Science in Information Technology</td>
-                <td class="text-end">
-                    <button class="btn btn-outline-primary" type="submit">Edit</button>
-                    <button class="btn btn-danger" type="submit">Archive</button>
+                <th>{{ $item->id }}</th>
+                <th>{{ $item->program_code }}</th>
+                <td colspan="2">{{ $item->program_name }}</td>
+                <td class="d-flex justify-content-end">
+                    <a class="btn btn-outline-primary me-2" href="{{ route('program.edit', $item->id) }}">Edit</a>
+                    <form action="{{ route('programs.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to archive this Program? You may unarchive this in the archived programs page.')">
+                    @csrf
+                    {{ method_field('DELETE') }}
+
+                        <button type="submit" class="btn btn-danger">Archive</button>
+                    </form>
                 </td>
             </tr>
+            @empty
             <tr>
-                <th>2</th>
-                <td colspan="2">Bachelor of Science in Computer Science</td>
-                <td class="text-end">
-                    <button class="btn btn-outline-primary" type="submit">Edit</button>
-                    <button class="btn btn-danger" type="submit">Archive</button>
-                </td>
+                <th>There are no programs</th>
             </tr>
-            <tr>
-                <th>3</th>
-                <td colspan="2">Bachelor of Science in Electrical Engineering</td>
-                <td class="text-end">
-                    <button class="btn btn-outline-primary" type="submit">Edit</button>
-                    <button class="btn btn-danger" type="submit">Archive</button>
-                </td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td colspan="2">Bachelor of Science in Computer Engineering</td>
-                <td class="text-end">
-                    <button class="btn btn-outline-primary" type="submit">Edit</button>
-                    <button class="btn btn-danger" type="submit">Archive</button>
-                </td>
-            </tr>
+         @endforelse
         </tbody>
     </table>
   </div>

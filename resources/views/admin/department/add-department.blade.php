@@ -9,7 +9,7 @@
         @csrf
         <div class="card-body">
             <div class="form-group row mb-3">
-                <label for="departmentPIC" class="col-sm-2 col-form-label">College:</label>
+                <label for="college_id" class="col-sm-2 col-form-label">College:</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="college_id" id="college_id" name="college_id">
                         @foreach($colleges as $item)

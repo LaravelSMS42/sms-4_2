@@ -16,39 +16,31 @@
         <thead>
             <tr>
             <th scope="col">ID</th>
+            <th scope="col">Code</th>
             <th scope="col">Program</th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
+        @forelse($programs as $item)
             <tr>
-                <th>1</th>
-                <td colspan="2">Bachelor of Science in Information Technology</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
+                <th>{{ $item->id }}</th>
+                <th>{{ $item->program_code }}</th>
+                <td colspan="2">{{ $item->program_name }}</td>
+                <td class="d-flex justify-content-end">
+                    <form action="{{ route('unarchive-program', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to restore this Program? You may view this in the program management page.')">
+                    @csrf
+                    {{ method_field('PUT') }}
+
+                        <button type="submit" class="btn btn-outline-success">Unarchive</button>
+                    </form>
                 </td>
             </tr>
+            @empty
             <tr>
-                <th>2</th>
-                <td colspan="2">Bachelor of Science in Computer Science</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
-                </td>
+                <th>There are no archived programs</th>
             </tr>
-            <tr>
-                <th>3</th>
-                <td colspan="2">Bachelor of Science in Electrical Engineering</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
-                </td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td colspan="2">Bachelor of Science in Computer Engineering</td>
-                <td class="text-end">
-                    <button class="btn btn-success" type="submit">Unarchive</button>
-                </td>
-            </tr>
+         @endforelse
         </tbody>
     </table>
   </div>

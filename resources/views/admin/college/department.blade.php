@@ -28,7 +28,7 @@
                 <td colspan="2">{{ $item->department_name }}</td>
                 <td class="d-flex justify-content-end">
                     <a class="btn btn-outline-primary me-2" href="{{ route('department.edit', $item->id) }}">Edit</a>
-                    <form action="{{ route('department.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to archive this Department? You may unarchive this in the archived colleges page.')">
+                    <form action="{{ route('department.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to archive this Department? You may unarchive this in the archived departments page.')">
                     @csrf
                     {{ method_field('DELETE') }}
 
@@ -38,7 +38,7 @@
             </tr>
             @empty
             <tr>
-                <th>There are no departments</th>
+                <th>There are no departments in this college</th>
             </tr>
             @endforelse
         </tbody>

@@ -28,7 +28,7 @@ class DepartmentController extends Controller
     {
         //
         $buildings = Building::all();
-        $colleges = DB::table('colleges')->where('archived', '=', 0)->get();;
+        $colleges = DB::table('colleges')->where('archived', '=', 0)->get();
         return view('admin.department.add-department')->with('buildings', $buildings)->with('colleges', $colleges);
     }
 
@@ -114,5 +114,12 @@ class DepartmentController extends Controller
             'archived' => 0
         ]);
         return redirect()->route('archived-depts')->with('status', 'Department restored successfully!');
+    }
+
+    public function programs(Department $department)
+    {
+        //
+        $programs = DB::table('programs')->where('archived', '=', 0)->where('department_id', '=', $department->id)->get();
+        return view('admin.department.dept-programs', compact('department'))->with('programs', $programs);
     }
 }
