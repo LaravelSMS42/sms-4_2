@@ -9,3 +9,9 @@
 1. `php artisan migrate`
 
 1. `php artisan serve`
+
+## Adding changes/pushing to this repo:
+1. gawa po muna ng bago niyong branch
+2. lagay doon yoong mga changes
+3. commit
+4. then gawa ng bagong pull request
