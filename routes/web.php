@@ -40,7 +40,7 @@ Route::get('/VenueManagement', function () {
 Route::get('/ResourceAllocation', function () {
     return view('DTR.ResourceAllocation');
 });
-
+//Admin Routes
 Route::get('/college/archives', [CollegeController::class, 'archive'])->name('archived-colleges');
 Route::put('/college/archives/{college}', [CollegeController::class, 'unarchive'])->name('unarchive-college');
 Route::get('/college/{college}/departments', [CollegeController::class, 'departments'])->name('college-depts');
@@ -53,6 +53,23 @@ Route::resource('department', DepartmentController::class);
 Route::get('/program/archives', [ProgramController::class, 'archive'])->name('archived-programs');
 Route::put('/program/archives/{program}', [ProgramController::class, 'unarchive'])->name('unarchive-program');
 Route::resource('program', ProgramController::class);
+
+//Instructor Routes - Will be rewritten after API Accomplishment
+Route::get('/instructor/dashboard', function() {
+    return view('instructor.dashboard');
+});
+Route::get('/instructor/course/menu', function() {
+    return view('instructor.course-menu');
+});
+Route::get('/instructor/course/assignments', function() {
+    return view('instructor.assignments.assignments');
+});
+Route::get('/instructor/course/quizzes', function() {
+    return view('instructor.quizzes.quizzes');
+});
+Route::get('/instructor/course/exams', function() {
+    return view('instructor.exams.exams');
+});
 
 // Route::get('/college', [CollegeController::class, 'index'])->name('college');
 // Route::get('/add-college',[CollegeController::class, 'create'])->name('add-college');
