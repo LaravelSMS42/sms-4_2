@@ -35,13 +35,15 @@
                     <td>{{ $employee->department }}</td>
                     <td>${{ number_format($employee->salary, 2) }}</td>
                     <td>
-                        <a href="{{ route('employee.show', $employee->id) }}" class="btn btn-info btn-sm">View</a>
-                        <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE') <!-- This directive is required to send a DELETE request -->
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</button>
-                        </form>
-                    </td>
+    <a href="{{ route('employee.salary', $employee->employee_id) }}" class="btn btn-info btn-sm">View Salary</a>
+    <a href="{{ route('attendance.create', $employee->employee_id) }}" class="btn btn-secondary btn-sm">Take Attendance</a>
+ <!-- Updated link -->
+    <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('DELETE') <!-- This directive is required to send a DELETE request -->
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</button>
+    </form>
+</td>
                 </tr>
                 @endforeach
             </tbody>

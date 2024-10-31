@@ -65,5 +65,12 @@ class EmployeeController extends Controller
     // Redirect back with a success message
     return redirect()->route('employee.index')->with('success', 'Employee deleted successfully');
 }
+public function showSalary($employee_id)
+{
+    // Fetch the employee's details using employee_id instead of id
+    $employee = Employee::where('employee_id', $employee_id)->firstOrFail();
 
+    // Pass the employee data to the view
+    return view('employee.salary', compact('employee'));
+}
 }

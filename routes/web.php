@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
+
 // Web Routes
 Route::get('/', function () {
     return redirect('/hello');
@@ -26,3 +28,7 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.s
 Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.show'); // Show specific employee details
 Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
 Route::get('/payroll/get-employee-name/{id}', [PayrollController::class, 'getEmployeeName']);
+Route::get('employee/{employee_id}/salary', [EmployeeController::class, 'showSalary'])->name('employee.salary');
+
+Route::get('/employee/{id}/attendance', [AttendanceController::class, 'create'])->name('attendance.create');
+Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
