@@ -14,9 +14,10 @@ class Payroll extends Model
         'transaction_type',
         'employee_id',
         'employee_name',
-        'rate',
-        'allowance',
+        'amount',
         'date',
         'approved',
+        'status',
+        'unique_token', 
     ];
 }

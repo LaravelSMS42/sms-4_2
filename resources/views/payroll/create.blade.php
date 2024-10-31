@@ -25,7 +25,12 @@
 
         <div class="mb-3">
             <label for="employee_id" class="form-label">Employee ID</label>
-            <input type="text" class="form-control" id="employee_id" name="employee_id" required>
+            <select class="form-select" id="employee_id" name="employee_id" required>
+                <option value="">Select Employee ID</option>
+                @foreach($employees as $employee)
+                    <option value="{{ $employee->employee_id }}">{{ $employee->employee_id }}</option>
+                @endforeach
+            </select>
             @error('employee_id')
             <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -33,32 +38,16 @@
 
         <div class="mb-3">
             <label for="employee_name" class="form-label">Employee Name</label>
-            <input type="text" class="form-control" id="employee_name" name="employee_name" required>
+            <input type="text" class="form-control" id="employee_name" name="employee_name" readonly>
             @error('employee_name')
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mb-3">
-            <label for="rate" class="form-label">Rate</label>
-            <input type="number" class="form-control" id="rate" name="rate" required>
-            @error('rate')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="allowance" class="form-label">Allowance</label>
-            <input type="number" class="form-control" id="allowance" name="allowance" required>
-            @error('allowance')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date" name="date" required>
-            @error('date')
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amount" name="amount" readonly>
+            @error('amount')
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -66,4 +55,45 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('transaction_type').addEventListener('change', handleTransactionType);
+    document.getElementById('employee_id').addEventListener('change', fetchEmployeeData);
+
+    function handleTransactionType() {
+        const transactionType = document.getElementById('transaction_type').value;
+        const amountField = document.getElementById('amount');
+        if (transactionType === 'salary') {
+            amountField.readOnly = true;
+            fetchEmployeeData();
+        } else {
+            amountField.readOnly = false;
+            amountField.value = '';
+        }
+    }
+
+    function fetchEmployeeData() {
+    const employeeId = document.getElementById('employee_id').value;
+
+    if (employeeId) {
+        fetch(`/payroll/get-employee-name/${employeeId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('employee_name').value = data.name || '';
+                // Set amount regardless of transaction type
+                document.getElementById('amount').value = data.salary || '';
+                // If transaction type is salary, keep amount readonly
+                if (document.getElementById('transaction_type').value === 'salary') {
+                    document.getElementById('amount').readOnly = true;
+                } else {
+                    document.getElementById('amount').readOnly = false;
+                }
+            })
+            .catch(error => console.error('Error fetching employee data:', error));
+    } else {
+        document.getElementById('employee_name').value = '';
+        document.getElementById('amount').value = '';
+    }
+}
+</script>
 @endsection

@@ -1,19 +1,37 @@
 <?php
 
-// app/Http/Controllers/PayrollController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\Payroll;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PayrollController extends Controller
 {
-    
+    /**
+     * Display the create payroll form.
+     */
     public function create()
     {
-        return view('payroll.create'); // Show create payroll view
+        $employees = Employee::all(); // Retrieve all employees
+        return view('payroll.create', compact('employees')); // Pass employees to the view
     }
+
+    public function getEmployeeName($id)
+    {
+        $employee = Employee::where('employee_id', $id)->first();
+
+        if ($employee) {
+            return response()->json([
+                'name' => $employee->name,
+                'salary' => $employee->salary, // Include salary in the response
+            ]);
+        } else {
+            return response()->json(['name' => null, 'salary' => null]);
+        }
+    }
+
     public function store(Request $request)
     {
         // Validate request data
@@ -22,59 +40,105 @@ class PayrollController extends Controller
             'transaction_type' => 'required|string',
             'employee_id' => 'required|string',
             'employee_name' => 'required|string',
-            'rate' => 'required|numeric',
-            'allowance' => 'required|numeric',
-            'date' => 'required|date',
+            'amount' => 'required|numeric', 
+            // Remove date validation
         ]);
-
-        // Create payroll
-        $payroll = Payroll::create($validatedData);
-        return redirect()->route('payroll.create')->with('success', 'Payroll created successfully.');
+    
+        // Check if the other fields are received
+        \Log::info('Received data: ', $validatedData); // Log the received data for debugging
+    
+        // Create payroll with status set to 'pending'
+        $payroll = Payroll::create(array_merge($validatedData, [
+            'status' => 'pending',
+            'unique_token' => random_int(1000000000, 9999999999), // Generate a unique token
+        ]));
+    
+        // Check if the payroll entry was created successfully
+        if ($payroll) {
+            return redirect()->route('payroll.history')->with('message', 'Payroll created successfully.');
+        } else {
+            return back()->withErrors(['error' => 'Failed to create payroll.']);
+        }
     }
+    
+    
 
-    // Show the payroll approval page
+    /**
+     * Display the payroll approval page.
+     */
     public function showApprovalPage()
     {
         $pendingPayrolls = Payroll::where('approved', false)->get();
         return view('payroll.approval', compact('pendingPayrolls'));
     }
 
-    // API endpoint to get pending payroll data
+    /**
+     * Get pending payrolls (API).
+     */
     public function getPendingPayrolls()
     {
         $pendingPayrolls = Payroll::where('approved', false)->get();
         return response()->json($pendingPayrolls);
     }
 
-    // Show the payroll history page
-    public function showHistoryPage()
+    public function showHistoryPage(Request $request)
     {
-        $payrolls = Payroll::paginate(10); // Retrieve all payrolls for the view
+        // Initialize the query
+        $query = Payroll::query();
+
+        // Get filter inputs
+        $employeeId = trim($request->input('employee_id'));
+        $status = $request->input('status');
+
+        // Filter based on employee ID if provided
+        if ($employeeId) {
+            $query->where('employee_id', $employeeId); // Ensure data type matches
+        }
+
+        // Filter based on status if provided
+        if ($status) {
+            if ($status === 'approved') {
+                $query->where('approved', true);
+            } elseif ($status === 'declined') {
+                $query->where('status', 'declined');
+            } elseif ($status === 'pending') {
+                $query->where('approved', false)->where('status', 'pending');
+            }
+        }
+
+        // Log the query for debugging
+        \Log::info($query->toSql(), $query->getBindings());
+
+        // Paginate the filtered results
+        $payrolls = $query->paginate(10);
+
+        // Return the view with the payrolls
         return view('payroll.history', compact('payrolls'));
     }
 
-    // API endpoint to get payroll history data
-    public function getPayrollHistory()
-    {
-        $payrolls = Payroll::all(); // You might want to paginate this too
-        return response()->json($payrolls);
-    }
-
-    // Approve Payroll (API version)
+    /**
+     * Approve a payroll (API).
+     */
     public function approveApi($id)
     {
         $payroll = Payroll::findOrFail($id);
-        $payroll->approved = true; // Set approved status
-        $payroll->save(); // Save the changes
-        return redirect()->route('payroll.approval')->with('success', 'Payroll approved successfully.');
+        $payroll->approved = true;
+        $payroll->status = 'approved'; // Set status to approved
+        $payroll->save();
+        return redirect()->route('payroll.approval')->with('message', 'Payroll approved successfully.');
     }
 
-    // Decline Payroll (API version)
+    /**
+     * Decline a payroll (API).
+     */
     public function declineApi($id)
     {
         $payroll = Payroll::findOrFail($id);
-        $payroll->delete(); // Remove the payroll from the database
-        return redirect()->route('payroll.approval')->with('success', 'Payroll approved successfully.');
+        $payroll->status = 'declined'; // Update status to 'declined'
+        $payroll->approved = false; // Ensure approved is set to false
+        $payroll->save(); // Save changes
+
+        // Redirect back to the approval page (or any other page you want)
+        return redirect()->route('payroll.approval')->with('message', 'Payroll declined successfully.');
     }
 }
-

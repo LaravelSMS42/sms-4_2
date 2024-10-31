@@ -14,10 +14,10 @@ class CreatePayrollsTable extends Migration
             $table->string('transaction_type');
             $table->string('employee_id');
             $table->string('employee_name');
-            $table->decimal('rate', 10, 2);
-            $table->decimal('allowance', 10, 2);
-            $table->date('date');
-            $table->boolean('approved')->default(false); // Adding the approved column
+            $table->decimal('amount', 10, 2)->nullable(); // Add amount field
+            $table->boolean('approved')->default(false); // Add approved field
+            $table->string('status')->default('pending'); // Add status field with default value
+            $table->string('unique_token', 36)->unique()->nullable(); // Add unique_token field
             $table->timestamps();
         });
     }
@@ -27,4 +27,3 @@ class CreatePayrollsTable extends Migration
         Schema::dropIfExists('payrolls');
     }
 }
-
