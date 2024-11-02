@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RoomController;
 
 // Web Routes
 Route::get('/', function () {
@@ -38,4 +39,15 @@ Route::get('/payroll/deleted', [PayrollController::class, 'showDeleted'])->name(
 Route::post('/payroll/restore/{id}', [PayrollController::class, 'restore'])->name('payroll.restore');
 Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
 
+Route::get('/rooms/create', [RoomController::class, 'create'])->name('rooms.create'); // Show create room form
+Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store'); // Store new room
+Route::get('/rooms', [RoomController::class, 'show'])->name('rooms.show'); // List all rooms
+Route::delete('/rooms/{id}', [RoomController::class, 'remove'])->name('rooms.remove'); //Delete Rooms
+Route::put('/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update'); // Update room
 
+
+Route::post('/rooms/{room}/book', [RoomController::class, 'book'])->name('rooms.book');
+Route::post('/rooms/{id}/book', [RoomController::class, 'book'])->name('rooms.book');
+Route::get('/rooms/booked', [RoomController::class, 'booked'])->name('rooms.booked');
+Route::delete('/bookings/{id}', [RoomController::class, 'destroy'])->name('bookings.destroy');
+Route::put('/bookings/{id}', [RoomController::class, 'updateBooking'])->name('bookings.update');
