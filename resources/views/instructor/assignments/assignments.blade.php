@@ -17,7 +17,7 @@
   </div>
   <div class="card-body">
     <div class="d-flex bd-highlight mb-3">
-        <a href="" class="ms-auto d-flex bd-highlight btn btn-success">Add Assignment</a>
+        <a href="{{ route('assignments.create') }}" class="ms-auto d-flex bd-highlight btn btn-success">Add Assignment</a>
     </div>
     <table class="table">
         <thead>
@@ -28,13 +28,14 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
+            @forelse($assignments as $item)
             <tr>
-                <th>1</th>
-                <td colspan="2">Assignment 1</td>
+                <th>{{ $item->id }}</th>
+                <td colspan="2">{{ $item->title }}</td>
                 <td class="d-flex justify-content-end">
-                    <a class="btn btn-outline-primary me-2" href="">Edit</a>
+                    <a class="btn btn-outline-primary me-2" href="{{ route('assignments.edit', $item->id) }}">Edit</a>
                     <a class="btn btn-outline-primary me-2" href="">Submissions</a>
-                    <form action="" method="POST" onsubmit="return confirm('Are you sure you want to archive this College? You may unarchive this in the archived colleges page.')">
+                    <form action="" method="POST" onsubmit="return confirm('Are you sure you want to archive this assignment? You may unarchive this in the archived assignments page.')">
                     @csrf
                     {{ method_field('DELETE') }}
 
@@ -42,6 +43,11 @@
                     </form>
                 </td>
             </tr>
+            @empty
+            <tr>
+                <th>There are no assignments</th>
+            </tr>
+            @endforelse
         </tbody>
     </table>
   </div>

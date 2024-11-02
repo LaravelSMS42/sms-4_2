@@ -6,6 +6,7 @@ use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\AssignmentController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -15,3 +16,4 @@ Route::apiResource('colleges', CollegeController::class);
 Route::apiResource('buildings', BuildingController::class);
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('programs', ProgramController::class);
+Route::apiResource('assignments', AssignmentController::class);

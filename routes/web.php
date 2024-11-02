@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\AssignmentController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -53,6 +54,7 @@ Route::resource('department', DepartmentController::class);
 Route::get('/program/archives', [ProgramController::class, 'archive'])->name('archived-programs');
 Route::put('/program/archives/{program}', [ProgramController::class, 'unarchive'])->name('unarchive-program');
 Route::resource('program', ProgramController::class);
+Route::resource('assignments', AssignmentController::class);
 
 //Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
