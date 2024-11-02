@@ -20,8 +20,10 @@ class PayrollController extends Controller
 
     public function getEmployeeName($id)
     {
-        $employee = Employee::where('employee_id', $id)->first();
-
+        $employee = Employee::where('employee_id', $id)
+                            ->where('frozen', false) // Only fetch if the account is not frozen
+                            ->first();
+    
         if ($employee) {
             return response()->json([
                 'name' => $employee->name,
@@ -31,7 +33,7 @@ class PayrollController extends Controller
             return response()->json(['name' => null, 'salary' => null]);
         }
     }
-
+    
     public function store(Request $request)
     {
         // Validate request data
@@ -55,7 +57,7 @@ class PayrollController extends Controller
     
         // Check if the payroll entry was created successfully
         if ($payroll) {
-            return redirect()->route('payroll.history')->with('message', 'Payroll created successfully.');
+            return redirect()->route('payroll.approval')->with('message', 'Payroll created successfully.');
         } else {
             return back()->withErrors(['error' => 'Failed to create payroll.']);
         }
@@ -139,6 +141,24 @@ class PayrollController extends Controller
         $payroll->save(); // Save changes
 
         // Redirect back to the approval page (or any other page you want)
-        return redirect()->route('payroll.approval')->with('message', 'Payroll declined successfully.');
+        return redirect()->route('payroll.deleted')->with('message', 'Payroll declined successfully.');
     }
+
+    public function showDeleted()
+{
+    // Fetch all declined payrolls
+    $deletedPayrolls = Payroll::where('status', 'declined')->get();
+
+    return view('payroll.deleted', compact('deletedPayrolls'));
+}
+
+public function restore($id)
+{
+    $payroll = Payroll::findOrFail($id);
+    $payroll->status = 'pending'; // Change status back to 'pending'
+    $payroll->approved = false; // Reset approval status if necessary
+    $payroll->save(); // Save the changes
+
+    return redirect()->route('payroll.deleted')->with('message', 'Payroll restored successfully.');
+}
 }

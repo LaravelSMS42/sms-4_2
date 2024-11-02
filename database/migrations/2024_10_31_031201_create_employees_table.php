@@ -20,6 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('role');
             $table->string('department');
             $table->decimal('salary', 8, 2);
+            $table->string('password'); // Add password column
             $table->timestamps();
         });
     }

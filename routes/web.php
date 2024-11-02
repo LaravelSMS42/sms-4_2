@@ -32,3 +32,10 @@ Route::get('employee/{employee_id}/salary', [EmployeeController::class, 'showSal
 
 Route::get('/employee/{id}/attendance', [AttendanceController::class, 'create'])->name('attendance.create');
 Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+Route::post('/employee/{id}/freeze', [EmployeeController::class, 'freeze'])->name('employee.freeze');
+Route::post('/employee/{id}/unfreeze', [EmployeeController::class, 'unfreeze'])->name('employee.unfreeze');
+Route::get('/payroll/deleted', [PayrollController::class, 'showDeleted'])->name('payroll.deleted');
+Route::post('/payroll/restore/{id}', [PayrollController::class, 'restore'])->name('payroll.restore');
+Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+
+

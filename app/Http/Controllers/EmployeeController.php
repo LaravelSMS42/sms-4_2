@@ -31,6 +31,7 @@ class EmployeeController extends Controller
         'role' => 'required|string|max:255',
         'department' => 'required|string|max:255',
         'salary' => 'required|numeric',
+        'password' => 'required|string|min:4'
     ]);
 
     // Generate a unique numeric employee ID
@@ -73,4 +74,42 @@ public function showSalary($employee_id)
     // Pass the employee data to the view
     return view('employee.salary', compact('employee'));
 }
+
+public function freeze($id)
+{
+    $employee = Employee::findOrFail($id);
+    $employee->frozen = true;
+    $employee->save();
+
+    return redirect()->route('employee.index')->with('success', 'Employee account has been frozen.');
+}
+public function unfreeze($id)
+{
+    $employee = Employee::findOrFail($id);
+    $employee->frozen = false;
+    $employee->save();
+
+    return redirect()->route('employee.index')->with('success', 'Employee account has been unfrozen.');
+}
+public function edit($id)
+{
+    $employee = Employee::findOrFail($id); // Find the employee by ID
+    return view('employee.edit', compact('employee')); // Return the edit view with employee data
+}
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'role' => 'required|string',
+        'department' => 'required|string',
+        'salary' => 'required|numeric',
+    ]);
+
+    $employee = Employee::findOrFail($id);
+    $employee->update($validatedData); // Update the employee with validated data
+
+    return redirect()->route('employee.index')->with('success', 'Employee updated successfully.'); // Redirect back to employee list
+}
+
+
 }

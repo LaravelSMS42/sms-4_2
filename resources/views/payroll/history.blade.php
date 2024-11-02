@@ -5,7 +5,24 @@
 @section('content')
 <div class="container mt-4">
     <h1>Payroll History</h1>
-    
+
+    <!-- Display Success or Error Messages -->
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form method="GET" action="{{ route('payroll.history') }}" class="mb-4">
         <div class="row">
             <div class="col-md-3">
@@ -24,7 +41,7 @@
             </div>
         </div>
     </form>
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -44,7 +61,7 @@
                     <td>{{ $payroll->employee_name }}</td>
                     <td>{{ $payroll->employee_type }}</td>
                     <td>{{ $payroll->transaction_type }}</td>
-                    <td>{{ $payroll->amount }}</td> <!-- Displaying Amount -->
+                    <td>${{ number_format($payroll->amount, 2) }}</td> <!-- Displaying Amount -->
                     <td>{{ $payroll->created_at->format('Y-m-d') }}</td> <!-- Displaying created date -->
                     <td>
                         @if($payroll->approved)
@@ -59,6 +76,7 @@
             @endforeach
         </tbody>
     </table>
+
     {{ $payrolls->links() }} <!-- Pagination links -->
 </div>
 @endsection

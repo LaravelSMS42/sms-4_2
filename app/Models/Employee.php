@@ -16,6 +16,8 @@ class Employee extends Model
         'department',
         'salary',
         'employee_id', // employee_id is now fillable
+        'password',
+        'frozen'
     ];
 
 }
