@@ -11,14 +11,18 @@ class RoomController extends Controller
 {
     public function create()
     {
-        $professors = Employee::where('role', 'Professor')->get();
-        return view('rooms.create', compact('professors'));
+        $professors = Employee::where('role', 'Professor')
+        ->where('frozen', false) // Only fetch professors with non-frozen accounts
+        ->get();
+return view('rooms.create', compact('professors'));
     }
 
     public function show()
     {
         $rooms = Room::all();
-        $professors = Employee::where('role', 'Professor')->get();
+        $professors = Employee::where('role', 'Professor')
+        ->where('frozen', false) // Only fetch professors with non-frozen accounts
+        ->get();
         return view('rooms.show', compact('rooms', 'professors'));
     }
 

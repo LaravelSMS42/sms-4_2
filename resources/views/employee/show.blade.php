@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 @foreach($employees as $employee)
-                <tr>
+                <tr class="{{ $employee->frozen ? 'table-secondary text-muted' : '' }}"> <!-- Apply color if frozen -->
                     <td>{{ $employee->employee_id }}</td>
                     <td>{{ $employee->name }}</td>
                     <td>{{ $employee->role }}</td>
@@ -146,6 +146,7 @@
 
     <a href="{{ route('employee.create') }}" class="btn btn-primary">Create New Employee</a>
 </div>
+
 
 <script>
 function updateSalary(employeeId) {
