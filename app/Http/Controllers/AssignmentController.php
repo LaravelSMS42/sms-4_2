@@ -105,5 +105,26 @@ class AssignmentController extends Controller
     public function destroy(Assignment $assignment)
     {
         //
+        $assignment->update([
+            'archived' => 1
+        ]);
+        return redirect()->route('assignments.index')->with('status', 'Assignment archived successfully!');
     }
+
+    public function archive()
+    {
+        //
+        $assignments = DB::table('assignments')->where('archived', '=', 1)->get();
+        return view('instructor.assignments.assignment-archives')->with('assignments', $assignments);
+    }
+
+    public function unarchive(Assignment $assignment)
+    {
+        //
+        $assignment->update([
+            'archived' => 0
+        ]);
+        return redirect()->route('archived-assignments')->with('status', 'Assignment restored successfully!');
+    }
+
 }

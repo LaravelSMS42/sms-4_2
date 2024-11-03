@@ -16,8 +16,13 @@
     <h5 class="card-title">Assignments</h5>
   </div>
   <div class="card-body">
-    <div class="d-flex bd-highlight mb-3">
-        <a href="{{ route('assignments.create') }}" class="ms-auto d-flex bd-highlight btn btn-success">Add Assignment</a>
+    <div class="d-flex bd-highlight mb-3 justify-content-between">
+        <div class="d-flex">
+            <a href="{{ route('archived-assignments') }}" class="ms-auto d-flex bd-highlight btn btn-primary">Archives</a>
+        </div>
+        <div class="d-flex">
+            <a href="{{ route('assignments.create') }}" class="ms-auto d-flex bd-highlight btn btn-success">Add Assignment</a>
+        </div>
     </div>
     <table class="table">
         <thead>
@@ -35,7 +40,7 @@
                 <td class="d-flex justify-content-end">
                     <a class="btn btn-outline-primary me-2" href="{{ route('assignments.edit', $item->id) }}">Edit</a>
                     <a class="btn btn-outline-primary me-2" href="">Submissions</a>
-                    <form action="" method="POST" onsubmit="return confirm('Are you sure you want to archive this assignment? You may unarchive this in the archived assignments page.')">
+                    <form action="{{ route('assignments.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to archive this assignment? You may unarchive this in the archived assignments page.')">
                     @csrf
                     {{ method_field('DELETE') }}
 

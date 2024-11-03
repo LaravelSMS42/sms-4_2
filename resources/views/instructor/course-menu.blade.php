@@ -25,6 +25,9 @@
                 <td><a href="{{ route('assignments.index') }}">Assignments</a></td>
             </tr>
             <tr>
+                <td><a href="{{ route('archived-assignments') }}">Archived Assignments</a></td>
+            </tr>
+            <tr>
                 <td><a href="/instructor/course/quizzes">Quizzes</a></td>
             </tr>
             <tr>

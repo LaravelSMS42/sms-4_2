@@ -55,6 +55,8 @@ Route::get('/program/archives', [ProgramController::class, 'archive'])->name('ar
 Route::put('/program/archives/{program}', [ProgramController::class, 'unarchive'])->name('unarchive-program');
 Route::resource('program', ProgramController::class);
 Route::resource('assignments', AssignmentController::class);
+Route::get('/course/assignments/archives', [AssignmentController::class, 'archive'])->name('archived-assignments');
+Route::put('/course/assignments/archives/{assignment}', [AssignmentController::class, 'unarchive'])->name('unarchive-assignment');
 
 //Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
