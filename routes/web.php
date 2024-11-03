@@ -5,6 +5,7 @@ use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\QuizController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -57,6 +58,9 @@ Route::resource('program', ProgramController::class);
 Route::resource('assignments', AssignmentController::class);
 Route::get('/course/assignments/archives', [AssignmentController::class, 'archive'])->name('archived-assignments');
 Route::put('/course/assignments/archives/{assignment}', [AssignmentController::class, 'unarchive'])->name('unarchive-assignment');
+Route::resource('quizzes', QuizController::class);
+Route::get('/course/quizzes/archives', [QuizController::class, 'archive'])->name('archived-quizzes');
+Route::put('/course/quizzes/archives/{quiz}', [QuizController::class, 'unarchive'])->name('unarchive-quiz');
 
 //Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
@@ -64,12 +68,6 @@ Route::get('/instructor/dashboard', function() {
 });
 Route::get('/instructor/course/menu', function() {
     return view('instructor.course-menu');
-});
-Route::get('/instructor/course/assignments', function() {
-    return view('instructor.assignments.assignments');
-});
-Route::get('/instructor/course/quizzes', function() {
-    return view('instructor.quizzes.quizzes');
 });
 Route::get('/instructor/course/exams', function() {
     return view('instructor.exams.exams');

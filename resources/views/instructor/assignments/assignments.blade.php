@@ -11,6 +11,8 @@
     {{ (session()->get('status')) }}
 </div> 
 @endif
+<a href="/instructor/course/menu" class="d-flex flex-start mb-2"><- Back to Course Menu</a>
+
 <div class="card">
   <div class="card-header text-center">
     <h5 class="card-title">Assignments</h5>
