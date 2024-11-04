@@ -31,7 +31,7 @@
                 <td><a href="{{ route('quizzes.index') }}">Quizzes</a></td>
             </tr>
             <tr>
-                <td><a href="{{ route('archived-quizzes') }}">Archived Assignments</a></td>
+                <td><a href="{{ route('archived-quizzes') }}">Archived Quizzes</a></td>
             </tr>
             <tr>
                 <td><a href="/instructor/course/exams">Exams</a></td>
