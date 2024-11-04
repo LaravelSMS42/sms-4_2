@@ -50,7 +50,7 @@
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <a href="" class="btn btn-primary">Questions</a>
+                        <a href="{{ route('quiz-questions', $quiz->id) }}" class="btn btn-primary">Questions</a>
                     </div>
                     <div class="gap-2 d-flex justify-content-end">
                         <button type="submit" class="btn btn-success" value="Add">Save</button>

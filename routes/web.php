@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -61,6 +62,9 @@ Route::put('/course/assignments/archives/{assignment}', [AssignmentController::c
 Route::resource('quizzes', QuizController::class);
 Route::get('/course/quizzes/archives', [QuizController::class, 'archive'])->name('archived-quizzes');
 Route::put('/course/quizzes/archives/{quiz}', [QuizController::class, 'unarchive'])->name('unarchive-quiz');
+Route::resource('question', QuestionController::class);
+Route::get('/instructor/{quiz}/questions', [QuestionController::class, 'questions'])->name('quiz-questions');
+Route::get('/instructor/{quiz}/questions/add-question', [QuestionController::class, 'addQuestion'])->name('add-question');
 
 //Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
