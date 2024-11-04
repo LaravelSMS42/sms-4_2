@@ -25,6 +25,7 @@
             <li><a class="dropdown-item" href="{{ route('payroll.create') }}">Create Payroll</a></li> <!-- Link to payroll create -->
             <li><a class="dropdown-item" href="{{ route('payroll.approval') }}">Payroll Approval</a></li> <!-- Link to payroll approval -->
             <li><a class="dropdown-item" href="{{ route('payroll.history') }}">Payroll History</a></li> <!-- Link to payroll history -->
+            <li><a class="dropdown-item" href="{{ route('payroll.deleted') }}">Deleted Payroll</a></li> <!-- Link to payroll history -->
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -34,6 +35,16 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('employee.create') }}">Create Employee</a></li> <!-- Link to create employee -->
             <li><a class="dropdown-item" href="{{ route('employee.index') }}">Show Employees</a></li> <!-- Link to show employees -->
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Rooms
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('rooms.create') }}">Create Rooms</a></li> <!-- Link to create employee -->
+            <li><a class="dropdown-item" href="{{ route('rooms.show') }}">Show Rooms</a></li> <!-- Link to show employees -->
+            <li><a class="dropdown-item" href="{{ route('rooms.booked') }}">Booked Rooms</a></li> <!-- Link to show employees -->
           </ul>
         </li>
       </ul>
