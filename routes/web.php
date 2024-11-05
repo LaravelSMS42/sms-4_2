@@ -7,6 +7,8 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ExamQuestionController;
+use App\Http\Controllers\ExamController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -65,6 +67,14 @@ Route::put('/course/quizzes/archives/{quiz}', [QuizController::class, 'unarchive
 Route::resource('question', QuestionController::class);
 Route::get('/instructor/{quiz}/questions', [QuestionController::class, 'questions'])->name('quiz-questions');
 Route::get('/instructor/{quiz}/questions/add-question', [QuestionController::class, 'addQuestion'])->name('add-question');
+Route::resource('exams', ExamController::class);
+Route::get('/course/exams/archives', [ExamController::class, 'archive'])->name('archived-exams');
+Route::put('/course/exams/archives/{exam}', [ExamController::class, 'unarchive'])->name('unarchive-exam');
+Route::resource('exam-question', ExamQuestionController::class);
+Route::get('/instructor/{exam}/exam-questions', [ExamQuestionController::class, 'questions'])->name('exam-questions');
+Route::get('/instructor/{exam}/questions/add-exam-question', [ExamQuestionController::class, 'addQuestion'])->name('add-exam-question');
+
+
 
 //Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
@@ -72,9 +82,6 @@ Route::get('/instructor/dashboard', function() {
 });
 Route::get('/instructor/course/menu', function() {
     return view('instructor.course-menu');
-});
-Route::get('/instructor/course/exams', function() {
-    return view('instructor.exams.exams');
 });
 
 // Route::get('/college', [CollegeController::class, 'index'])->name('college');

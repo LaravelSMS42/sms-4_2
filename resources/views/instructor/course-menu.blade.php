@@ -25,16 +25,10 @@
                 <td><a href="{{ route('assignments.index') }}">Assignments</a></td>
             </tr>
             <tr>
-                <td><a href="{{ route('archived-assignments') }}">Archived Assignments</a></td>
-            </tr>
-            <tr>
                 <td><a href="{{ route('quizzes.index') }}">Quizzes</a></td>
             </tr>
             <tr>
-                <td><a href="{{ route('archived-quizzes') }}">Archived Quizzes</a></td>
-            </tr>
-            <tr>
-                <td><a href="/instructor/course/exams">Exams</a></td>
+                <td><a href="{{ route('exams.index') }}">Exams</a></td>
             </tr>
             <tr>
                 <td><a href="#">Grades</a></td>
