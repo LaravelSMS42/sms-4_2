@@ -61,6 +61,7 @@ class AssignmentController extends Controller
     public function show(Assignment $assignment)
     {
         //
+        return view('student.assignments.assignment', compact('assignment'));
     }
 
     /**
@@ -127,4 +128,10 @@ class AssignmentController extends Controller
         return redirect()->route('archived-assignments')->with('status', 'Assignment restored successfully!');
     }
 
+    public function studentIndex()
+    {
+        //
+        $assignments = DB::table('assignments')->where('archived', '=', 0)->get();
+        return view('student.assignments.assignments')->with('assignments', $assignments);
+    }
 }

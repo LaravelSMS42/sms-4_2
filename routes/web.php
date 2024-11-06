@@ -9,6 +9,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ExamQuestionController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\AssignmentSubmissionController;
 
 Route::get('/', function () {
     return redirect('/hello');
@@ -58,6 +59,8 @@ Route::resource('department', DepartmentController::class);
 Route::get('/program/archives', [ProgramController::class, 'archive'])->name('archived-programs');
 Route::put('/program/archives/{program}', [ProgramController::class, 'unarchive'])->name('unarchive-program');
 Route::resource('program', ProgramController::class);
+
+//Instructor Routes - Will be rewritten after API of related entities has been accomplished
 Route::resource('assignments', AssignmentController::class);
 Route::get('/course/assignments/archives', [AssignmentController::class, 'archive'])->name('archived-assignments');
 Route::put('/course/assignments/archives/{assignment}', [AssignmentController::class, 'unarchive'])->name('unarchive-assignment');
@@ -73,16 +76,23 @@ Route::put('/course/exams/archives/{exam}', [ExamController::class, 'unarchive']
 Route::resource('exam-question', ExamQuestionController::class);
 Route::get('/instructor/{exam}/exam-questions', [ExamQuestionController::class, 'questions'])->name('exam-questions');
 Route::get('/instructor/{exam}/questions/add-exam-question', [ExamQuestionController::class, 'addQuestion'])->name('add-exam-question');
-
-
-
-//Instructor Routes - Will be rewritten after API Accomplishment
 Route::get('/instructor/dashboard', function() {
     return view('instructor.dashboard');
 });
 Route::get('/instructor/course/menu', function() {
     return view('instructor.course-menu');
 });
+
+//Student Routes - Will be rewritten after API Accomplishment of related entities
+Route::get('/student/dashboard', function() {
+    return view('student.dashboard');
+});
+Route::get('/student/course/menu', function() {
+    return view('student.course-menu');
+});
+Route::get('/student/course/assignments', [AssignmentController::class, 'studentIndex'])->name('student-assignment');
+Route::resource('assignmentsubmission', AssignmentSubmissionController::class);
+Route::get('/student/course/assignments/{assignment}/create', [AssignmentSubmissionController::class, 'createSubmission'])->name('create-assignment');
 
 // Route::get('/college', [CollegeController::class, 'index'])->name('college');
 // Route::get('/add-college',[CollegeController::class, 'create'])->name('add-college');
