@@ -51,3 +51,7 @@ Route::post('/rooms/{id}/book', [RoomController::class, 'book'])->name('rooms.bo
 Route::get('/rooms/booked', [RoomController::class, 'booked'])->name('rooms.booked');
 Route::delete('/bookings/{id}', [RoomController::class, 'destroy'])->name('bookings.destroy');
 Route::put('/bookings/{id}', [RoomController::class, 'updateBooking'])->name('bookings.update');
+
+
+Route::get('/attendance/{employeeId}/dates', [EmployeeController::class, 'getAttendanceDates']);
+Route::post('/attendance/remove', [EmployeeController::class, 'remove'])->name('attendance.remove');

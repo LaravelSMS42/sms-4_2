@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str; // Add this line
+use App\Models\Attendance;
 
 class EmployeeController extends Controller
 {
@@ -111,5 +112,34 @@ public function update(Request $request, $id)
     return redirect()->route('employee.index')->with('success', 'Employee updated successfully.'); // Redirect back to employee list
 }
 
+public function getAttendanceDates($employeeId)
+{
+    try {
+        $attendanceRecords = Attendance::where('employee_id', $employeeId)->get();
+        $attendanceData = [];
+        foreach ($attendanceRecords as $record) {
+            $attendanceData[$record->date] = $record->status;
+        }
+
+        return response()->json($attendanceData);
+
+    } catch (\Exception $e) {
+        Log::error('Failed to load attendance data: ' . $e->getMessage());
+        return response()->json(['error' => 'Failed to load attendance data'], 500);
+    }
+}
+
+public function remove(Request $request)
+{
+    $employeeId = $request->input('employee_id');
+    $date = $request->input('date');
+
+    // Remove the attendance status for the given date and employee
+    Attendance::where('employee_id', $employeeId)
+              ->where('date', $date)
+              ->delete();
+
+    return response()->json(['success' => true]);
+}
 
 }
