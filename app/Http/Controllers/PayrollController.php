@@ -6,6 +6,8 @@ use App\Models\Payroll;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\Attendance;
 
 class PayrollController extends Controller
 {
@@ -160,5 +162,79 @@ public function restore($id)
     $payroll->save(); // Save the changes
 
     return redirect()->route('payroll.deleted')->with('message', 'Payroll restored successfully.');
+}
+
+public function getAttendance($employeeId, $month)
+{
+    // Get the start and end of the selected month
+    $startOfMonth = Carbon::createFromFormat('Y-m', now()->year . '-' . $month)->startOfMonth();
+    $endOfMonth = Carbon::createFromFormat('Y-m', now()->year . '-' . $month)->endOfMonth();
+
+    // Get attendance data for the employee for the selected month
+    $attendance = Attendance::where('employee_id', $employeeId)
+        ->whereBetween('date', [$startOfMonth, $endOfMonth])
+        ->get();
+
+    // Initialize salary-related variables
+    $salary = 0; // Initialize salary to 0
+    $absentDays = 0;
+    $bonus = 0;
+    
+    // Loop through each attendance record to calculate deductions/bonuses
+    foreach ($attendance as $record) {
+        $dayOfWeek = Carbon::parse($record->date)->format('l'); // Get the day of the week (e.g., Monday, Tuesday)
+        $isPresent = $record->status === 'present'; // Check if present (absent otherwise)
+
+        // Debugging: output the day and status of attendance for each day
+        \Log::info('Day: ' . $dayOfWeek . ', Status: ' . $record->status);
+
+        // Monday to Friday: Deduct 5% for each absent day
+        if ($dayOfWeek !== 'Saturday' && $dayOfWeek !== 'Sunday') {
+            if (!$isPresent) {
+                $absentDays++;
+            }
+        }
+
+        // Saturday and Sunday: Add 10% bonus if present
+        if ($dayOfWeek === 'Saturday' || $dayOfWeek === 'Sunday') {
+            if ($isPresent) {
+                $bonus += 0.10; // 10% bonus for present on weekends
+            }
+        }
+    }
+
+    // Fetch the employee's base salary
+    $employee = Employee::find($employeeId);
+    $salary = $employee->salary;
+
+    // Debugging: Check employee salary before deductions
+    \Log::info('Base Salary: ' . $salary);
+
+    // Calculate the total deductions for absent days from Monday to Friday
+    $deductionPercentage = $absentDays * 0.05; // 5% deduction per absent day
+    $deductionAmount = $salary * $deductionPercentage;
+
+    // Debugging: Check the deduction amount for absent days
+    \Log::info('Deduction Amount: ' . $deductionAmount);
+
+    // Calculate the total bonus for Saturdays and Sundays
+    $bonusAmount = $salary * $bonus;
+
+    // Debugging: Check the bonus amount for weekends
+    \Log::info('Bonus Amount: ' . $bonusAmount);
+
+    // Adjust the salary based on deductions and bonuses
+    $adjustedSalary = $salary - $deductionAmount + $bonusAmount;
+
+    // Debugging: Check the final adjusted salary
+    \Log::info('Adjusted Salary: ' . $adjustedSalary);
+
+    return response()->json([
+        'attendance' => $attendance,
+        'adjustedSalary' => $adjustedSalary, // Return the adjusted salary
+        'absentDays' => $absentDays, // Optionally return absent days for reference
+        'bonusAmount' => $bonusAmount, // Return bonus for the weekends
+        'deductionAmount' => $deductionAmount // Return deductions for weekdays
+    ]);
 }
 }

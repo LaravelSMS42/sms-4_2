@@ -52,6 +52,16 @@
             @enderror
         </div>
 
+        <!-- Month Dropdown -->
+        <div class="mb-3">
+            <label for="month" class="form-label">Month</label>
+            <select class="form-select" name="month" id="month" required>
+                @foreach(range(1, 12) as $month)
+                    <option value="{{ $month }}">{{ \Carbon\Carbon::create()->month($month)->format('F') }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
@@ -59,6 +69,7 @@
 <script>
     document.getElementById('transaction_type').addEventListener('change', handleTransactionType);
     document.getElementById('employee_id').addEventListener('change', fetchEmployeeData);
+    document.getElementById('month').addEventListener('change', fetchAttendanceData);
 
     function handleTransactionType() {
         const transactionType = document.getElementById('transaction_type').value;
@@ -73,27 +84,41 @@
     }
 
     function fetchEmployeeData() {
-    const employeeId = document.getElementById('employee_id').value;
+        const employeeId = document.getElementById('employee_id').value;
 
-    if (employeeId) {
-        fetch(`/payroll/get-employee-name/${employeeId}`)
+        if (employeeId) {
+            fetch(`/payroll/get-employee-name/${employeeId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('employee_name').value = data.name || '';
+                    document.getElementById('amount').value = data.salary || '';
+                    if (document.getElementById('transaction_type').value === 'salary') {
+                        document.getElementById('amount').readOnly = true;
+                    } else {
+                        document.getElementById('amount').readOnly = false;
+                    }
+                })
+                .catch(error => console.error('Error fetching employee data:', error));
+        } else {
+            document.getElementById('employee_name').value = '';
+            document.getElementById('amount').value = '';
+        }
+    }
+
+    function fetchAttendanceData() {
+    const employeeId = document.getElementById('employee_id').value;
+    const month = document.getElementById('month').value;
+
+    if (employeeId && month) {
+        fetch(`/payroll/get-attendance/${employeeId}/${month}`)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('employee_name').value = data.name || '';
-                // Set amount regardless of transaction type
-                document.getElementById('amount').value = data.salary || '';
-                // If transaction type is salary, keep amount readonly
-                if (document.getElementById('transaction_type').value === 'salary') {
-                    document.getElementById('amount').readOnly = true;
-                } else {
-                    document.getElementById('amount').readOnly = false;
-                }
+                // Show the adjusted salary in the amount field
+                document.getElementById('amount').value = data.adjustedSalary || '';
             })
-            .catch(error => console.error('Error fetching employee data:', error));
-    } else {
-        document.getElementById('employee_name').value = '';
-        document.getElementById('amount').value = '';
+            .catch(error => console.error('Error fetching attendance data:', error));
     }
 }
+
 </script>
 @endsection

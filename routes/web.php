@@ -55,3 +55,5 @@ Route::put('/bookings/{id}', [RoomController::class, 'updateBooking'])->name('bo
 
 Route::get('/attendance/{employeeId}/dates', [EmployeeController::class, 'getAttendanceDates']);
 Route::post('/attendance/remove', [EmployeeController::class, 'remove'])->name('attendance.remove');
+
+Route::get('/payroll/get-attendance/{employeeId}/{month}', [PayrollController::class, 'getAttendance']);
